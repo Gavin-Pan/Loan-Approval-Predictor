@@ -45,7 +45,11 @@ export interface PredictionResponse {
   what_if_scenarios: Record<string, WhatIfScenario>;
 }
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001').replace(/\/$/, '');
+let rawUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+if (!rawUrl.startsWith('http')) {
+  rawUrl = `https://${rawUrl}`;
+}
+const API_URL = rawUrl.replace(/\/$/, '');
 export async function predictLoan(application: LoanApplication): Promise<PredictionResponse> {
   const response = await fetch(`${API_URL}/api/predict`, {
     method: 'POST',
