@@ -1,5 +1,6 @@
 # 🏦 Loan Approval Predictor
 
+Link to website: ![Website]([https://img.shields.io/badge/ML-Powered-blue](https://loan-approval-predictor-lemon.vercel.app/?_vercel_share=En8YnZG0FXSiKzN4vnEVdkGSDk2zet57)) 
 A full-stack ML-powered loan approval prediction application with beautiful UI, feature impact analysis, and personalized recommendations.
 
 ![Loan Approval Predictor](https://img.shields.io/badge/ML-Powered-blue) ![Next.js](https://img.shields.io/badge/Next.js-16-black) ![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green)
