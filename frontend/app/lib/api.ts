@@ -45,8 +45,7 @@ export interface PredictionResponse {
   what_if_scenarios: Record<string, WhatIfScenario>;
 }
 
-const API_URL = 'http://localhost:8000';
-
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001').replace(/\/$/, '');
 export async function predictLoan(application: LoanApplication): Promise<PredictionResponse> {
   const response = await fetch(`${API_URL}/api/predict`, {
     method: 'POST',
@@ -55,11 +54,24 @@ export async function predictLoan(application: LoanApplication): Promise<Predict
     },
     body: JSON.stringify(application),
   });
-
+  // ✅ New Error Handling (Tells you exactly what the server said)
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || 'Prediction failed');
+    const text = await response.text();
+    let errorMessage = 'Prediction failed';
+    try {
+      const errorData = JSON.parse(text);
+      errorMessage = errorData.detail || errorMessage;
+    } catch {
+      // If server sends HTML or text instead of JSON (like a 404 or 502 error)
+      errorMessage = `Server Error (${response.status}): ${text.substring(0, 100)}`;
+    }
+    throw new Error(errorMessage);
   }
-
-  return response.json();
+  // ✅ New Response Parsing (Safe)
+  const data = await response.text();
+  try {
+    return JSON.parse(data);
+  } catch (err) {
+    throw new Error(`Failed to parse response. Server sent: ${data.substring(0, 100)}`);
+  }
 }
