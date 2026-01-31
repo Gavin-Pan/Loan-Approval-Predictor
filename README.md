@@ -1,6 +1,7 @@
 # 🏦 Loan Approval Predictor
 
 Link to website: ![Website]([https://img.shields.io/badge/ML-Powered-blue](https://loan-approval-predictor-lemon.vercel.app/?_vercel_share=En8YnZG0FXSiKzN4vnEVdkGSDk2zet57)) 
+Link to data: ![Data Source](https://github.com/aicouncil/MLOps_Tutorial/blob/main/loanTrain.csv) 
 
 A full-stack ML-powered loan approval prediction application with beautiful UI, feature impact analysis, and personalized recommendations.
 
